@@ -9,6 +9,8 @@ import { BackgroundGrid } from './components/BackgroundGrid';
 import { CameraOverlay } from './components/CameraOverlay';
 import { useMouseCoordinates } from './hooks/useMouseCoordinates';
 
+import { siteConfig } from './data/siteConfig';
+
 function App() {
   const location = useLocation();
   const coords = useMouseCoordinates();
@@ -17,19 +19,19 @@ function App() {
   const getSectionInfo = () => {
     switch (location.pathname) {
       case '/':
-        return { index: 0, title: "MISSION_PROFILE", subtitle: "SYSTEM_ENTRY" };
+        return siteConfig.sections.hero;
       case '/portfolio':
-        return { index: 1, title: "PROJECT_ARCHIVE", subtitle: "DEPLOYMENTS" };
+        return siteConfig.sections.portfolio;
       case '/network':
-        return { index: 2, title: "SIGNAL_GRID", subtitle: "CORE_SKILLS" };
+        return siteConfig.sections.network;
       case '/credentials':
-        return { index: 3, title: "VERIFICATION", subtitle: "CERT_VAULT" };
+        return siteConfig.sections.credentials;
       default:
-        return { index: 0, title: "MISSION_PROFILE", subtitle: "SYSTEM_ENTRY" };
+        return siteConfig.sections.hero;
     }
   };
 
-  const { index, title, subtitle } = getSectionInfo();
+  const { activeIndex: index, title, subtitle } = getSectionInfo();
 
   // Calculate the horizontal offset based on the current active index
   const translateX = -(index * 100);

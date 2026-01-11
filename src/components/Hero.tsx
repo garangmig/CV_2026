@@ -1,25 +1,15 @@
 import { siteConfig } from '../data/siteConfig';
-import { useMouseCoordinates } from '../hooks/useMouseCoordinates';
 import { content } from '../data/content';
 import { BackgroundGrid } from './BackgroundGrid';
-import { Header } from './Header';
-import { Footer } from './Footer';
 
 export const Hero = () => {
-    const coords = useMouseCoordinates(5.0);
+
 
     return (
         <div className="flex flex-col h-screen w-full relative overflow-hidden bg-background dark:bg-dark-background">
             <BackgroundGrid opacityGrid={50} opacityCross={40} />
 
             <div className="relative z-10 flex flex-col h-full w-full">
-                <Header
-                    title={siteConfig.sections.hero.title}
-                    subtitle={siteConfig.sections.hero.subtitle}
-                    activeIndex={siteConfig.sections.hero.activeIndex}
-                    coords={coords}
-                />
-
                 {/* Main scrollable area */}
                 <main className={`flex-1 flex flex-col px-4 md:px-12 overflow-y-auto ${siteConfig.scrollbar.classes} z-10 pb-4`}>
                     <div className="flex flex-col justify-center w-full max-w-7xl mx-auto z-10 min-h-full pt-4">
@@ -62,7 +52,7 @@ export const Hero = () => {
                     </div>
                 </main>
 
-                <Footer status={true} />
+
             </div>
         </div>
     );

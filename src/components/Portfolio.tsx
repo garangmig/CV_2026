@@ -1,10 +1,6 @@
-
 import { useState } from 'react';
 import { projects } from '../data/projects';
 import { siteConfig } from '../data/siteConfig';
-import { useMouseCoordinates } from '../hooks/useMouseCoordinates';
-import { Header } from './Header';
-import { Footer } from './Footer';
 import { BackgroundGrid } from './BackgroundGrid';
 import { ProjectModal } from './ProjectModal';
 import type { Project } from '../types/project';
@@ -31,8 +27,6 @@ const FillerCard = ({ className }: { className: string }) => (
 );
 
 export const Portfolio = () => {
-    const { title, subtitle, activeIndex } = siteConfig.sections.portfolio;
-    const coords = useMouseCoordinates(5.0);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     return (
@@ -40,7 +34,7 @@ export const Portfolio = () => {
             <BackgroundGrid opacityGrid={50} opacityCross={40} />
 
             <div className="relative z-10 flex flex-col h-full w-full">
-                <Header title={title} subtitle={subtitle} activeIndex={activeIndex} coords={coords} />
+
 
                 <main className={`flex-1 flex flex-col px-4 md:px-12 overflow-y-auto ${siteConfig.scrollbar.classes} z-10 pb-4`}>
                     <div className="w-full border-l border-t border-grid-line dark:border-dark-grid-line grid grid-cols-2 lg:grid-cols-3 bg-background dark:bg-dark-background shadow-2xl">
@@ -113,7 +107,7 @@ export const Portfolio = () => {
                     </div>
                 </main>
 
-                <Footer version='2026' />
+
             </div>
 
             {selectedProject && (

@@ -1,13 +1,10 @@
 import { BackgroundGrid } from './BackgroundGrid';
-import { Header } from './Header';
-import { Footer } from './Footer';
-import { useMouseCoordinates } from '../hooks/useMouseCoordinates';
 import { service_records } from '../data/service_records';
 import { SKILLS_REGISTRY } from '../data/skills';
 import { useState, useMemo } from 'react';
 
 export const Network = () => {
-    const coords = useMouseCoordinates();
+
     const [hoveredService, setHoveredService] = useState<string | null>(null);
 
     const { cloud, devops, database } = useMemo(() => {
@@ -50,12 +47,7 @@ export const Network = () => {
             <BackgroundGrid />
 
             <div className="relative z-10 flex flex-col h-full w-full">
-                <Header
-                    title="03_NETWORK_LOGIC"
-                    subtitle="SYS.LOGIC_VIEW"
-                    activeIndex={2}
-                    coords={coords}
-                />
+
 
                 <main className="flex-1 flex flex-col px-4 md:px-12 pb-4 md:pb-8 overflow-hidden z-10">
                     <div className="w-full h-full border-l border-t border-grid-line dark:border-dark-grid-line flex flex-col md:flex-row bg-background-dark shadow-2xl relative">
@@ -151,7 +143,7 @@ export const Network = () => {
                     </div>
                 </main>
 
-                <Footer />
+
             </div>
         </div>
     );
