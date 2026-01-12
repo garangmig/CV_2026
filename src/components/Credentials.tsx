@@ -1,9 +1,6 @@
 import { siteConfig } from '../data/siteConfig';
 import { content } from '../data/content';
-import { BackgroundGrid } from './BackgroundGrid';
-
 export const Credentials = () => {
-
     const { education, certifications } = content;
     const university = education[0];
 
@@ -55,15 +52,13 @@ export const Credentials = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen w-full relative overflow-hidden bg-background dark:bg-dark-background text-secondary dark:text-dark-secondary">
-            <BackgroundGrid />
-
+        <div className="flex flex-col h-screen w-full relative overflow-hidden text-secondary dark:text-dark-secondary">
             <div className="relative z-10 flex flex-col h-full w-full">
 
 
                 {/* Main scrollable area */}
-                <main className={`flex-1 flex flex-col px-4 md:px-12 overflow-y-auto ${siteConfig.scrollbar.classes} z-10 pb-4`}>
-                    <div className="w-full min-h-[615px] md:min-h-0 h-full md:h-auto border-l border-b border-r border-t border-grid-line dark:border-dark-grid-line flex flex-col md:flex-row bg-background dark:bg-dark-background shadow-2xl relative">
+                <main className={`flex-1 flex flex-col px-4 md:px-12 overflow-y-auto ${siteConfig.scrollbar.classes} z-10 pt-20 pb-20`}>
+                    <div className="w-full min-h-[615px] md:min-h-0 h-full md:h-auto border-l border-b border-r border-t border-grid-line dark:border-dark-grid-line flex flex-col md:flex-row shadow-2xl relative">
                         {/* Decorative corners */}
                         <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                         <div className="absolute -top-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
@@ -110,7 +105,7 @@ export const Credentials = () => {
                         </section>
 
                         {/* Right Panel: INDUSTRY_CERTS */}
-                        <section className="w-full h-1/2 md:h-auto md:w-[40%] flex flex-col relative bg-background dark:bg-dark-background">
+                        <section className="w-full h-1/2 md:h-auto md:w-[40%] flex flex-col relative">
                             <div className="p-3 md:p-4 border-b border-grid-line dark:border-dark-grid-line bg-background/50 dark:bg-dark-background/50 backdrop-blur-sm flex items-center justify-between flex-none">
                                 <h2 className="font-mono text-xs text-primary/80 dark:text-dark-primary/80 tracking-widest">[ INDUSTRY_CERTS ]</h2>
                                 <span className="material-symbols-outlined text-[10px] md:text-xs text-muted dark:text-dark-muted">badge</span>

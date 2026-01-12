@@ -1,18 +1,12 @@
 import { siteConfig } from '../data/siteConfig';
 import { content } from '../data/content';
-import { BackgroundGrid } from './BackgroundGrid';
-
 export const Hero = () => {
-
-
     return (
-        <div className="flex flex-col h-screen w-full relative overflow-hidden bg-background dark:bg-dark-background">
-            <BackgroundGrid opacityGrid={50} opacityCross={40} />
-
+        <div className="flex flex-col h-screen w-full relative overflow-hidden">
             <div className="relative z-10 flex flex-col h-full w-full">
                 {/* Main scrollable area */}
-                <main className={`flex-1 flex flex-col px-4 md:px-12 overflow-y-auto ${siteConfig.scrollbar.classes} z-10 pb-4`}>
-                    <div className="flex flex-col justify-center w-full max-w-7xl mx-auto z-10 min-h-full pt-4">
+                <main className={`flex-1 flex flex-col px-4 md:px-12 overflow-y-auto ${siteConfig.scrollbar.classes} z-10 pt-20 pb-20`}>
+                    <div className="flex flex-col justify-center w-full max-w-7xl mx-auto z-10 min-h-full">
                         <div className="font-mono text-primary dark:text-dark-primary text-sm mb-6 flex items-center gap-2">
                             <span className="material-symbols-outlined text-sm">terminal</span>
                             <span>./INIT_SEQUENCE</span>

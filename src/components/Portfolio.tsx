@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { projects } from '../data/projects';
-import { siteConfig } from '../data/siteConfig';
-import { BackgroundGrid } from './BackgroundGrid';
 import { ProjectModal } from './ProjectModal';
 import type { Project } from '../types/project';
 
 const FillerCard = ({ className }: { className: string }) => (
-    <article className={`relative border-r border-b border-grid-line dark:border-dark-grid-line p-2 md:p-6 flex flex-col items-center justify-center group bg-background dark:bg-dark-background ${className}`}>
+    <article className={`relative border-r border-b border-grid-line dark:border-dark-grid-line p-2 md:p-6 flex flex-col items-center justify-center group ${className}`}>
         <div className="absolute -bottom-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
             <div className="w-full h-full bg-[repeating-linear-gradient(45deg,theme(colors.grid-line),theme(colors.grid-line)_10px,transparent_10px,transparent_20px)] dark:bg-[repeating-linear-gradient(45deg,theme(colors.dark.grid-line),theme(colors.dark.grid-line)_10px,transparent_10px,transparent_20px)] opacity-20"></div>
@@ -30,19 +28,15 @@ export const Portfolio = () => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     return (
-        <div className="flex flex-col h-screen w-full relative overflow-hidden bg-background dark:bg-dark-background">
-            <BackgroundGrid opacityGrid={50} opacityCross={40} />
-
-            <div className="relative z-10 flex flex-col h-full w-full">
-
-
-                <main className={`flex-1 flex flex-col px-4 md:px-12 overflow-y-auto ${siteConfig.scrollbar.classes} z-10 pb-4`}>
-                    <div className="w-full border-l border-t border-grid-line dark:border-dark-grid-line grid grid-cols-2 lg:grid-cols-3 bg-background dark:bg-dark-background shadow-2xl">
+        <div id="portfolio-section" className="flex flex-col w-full relative">
+            <div className="relative z-10 flex flex-col w-full">
+                <main className="flex-1 flex flex-col px-4 md:px-12 z-10 pb-20 pt-20">
+                    <div className="w-full border-l border-t border-grid-line dark:border-dark-grid-line grid grid-cols-2 lg:grid-cols-3 shadow-2xl">
                         {projects.map((proj) => (
                             <article
                                 key={proj.id}
                                 onClick={() => setSelectedProject(proj)}
-                                className="relative border-r border-b border-grid-line dark:border-dark-grid-line group overflow-hidden cursor-pointer h-full min-h-[220px] md:min-h-[350px] flex flex-col bg-background dark:bg-dark-background transition-all duration-500 shadow-2xl"
+                                className="relative border-r border-b border-grid-line dark:border-dark-grid-line group overflow-hidden cursor-pointer h-full min-h-[220px] md:min-h-[350px] flex flex-col transition-all duration-500 shadow-2xl"
                             >
                                 {/* Top and Middle Area (Image Background) */}
                                 <div className="relative flex-1 flex flex-col overflow-hidden pt-4 px-4 pb-0">
@@ -82,7 +76,7 @@ export const Portfolio = () => {
                                 </div>
 
                                 {/* Tags Area (Outside Image/Bottom) */}
-                                <div className="relative z-20 p-3 md:p-6 md:pt-2 bg-background dark:bg-dark-background border-t border-grid-line/30 dark:border-dark-grid-line/30">
+                                <div className="relative z-20 p-3 md:p-6 md:pt-2 border-t border-grid-line/30 dark:border-dark-grid-line/30">
                                     <div className="h-[1px] w-full bg-grid-line dark:bg-dark-grid-line relative overflow-hidden mb-1 md:mb-3">
                                         <div className="absolute inset-0 bg-primary dark:bg-dark-primary w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
                                     </div>

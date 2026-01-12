@@ -1,10 +1,8 @@
-import { BackgroundGrid } from './BackgroundGrid';
 import { service_records } from '../data/service_records';
 import { SKILLS_REGISTRY } from '../data/skills';
 import { useState, useMemo } from 'react';
 
 export const Network = () => {
-
     const [hoveredService, setHoveredService] = useState<string | null>(null);
 
     const { cloud, devops, database } = useMemo(() => {
@@ -43,33 +41,29 @@ export const Network = () => {
     };
 
     return (
-        <div className="flex flex-col h-full w-full relative">
-            <BackgroundGrid />
-
-            <div className="relative z-10 flex flex-col h-full w-full">
-
-
-                <main className="flex-1 flex flex-col px-4 md:px-12 pb-4 md:pb-8 overflow-hidden z-10">
-                    <div className="w-full h-full border-l border-t border-grid-line dark:border-dark-grid-line flex flex-col md:flex-row bg-background-dark shadow-2xl relative">
+        <div id="network-section" className="flex flex-col w-full relative">
+            <div className="relative z-10 flex flex-col w-full">
+                <main className="flex-1 flex flex-col px-4 md:px-12 pt-20 pb-20 z-10">
+                    <div className="w-full h-full border-l border-t border-grid-line dark:border-dark-grid-line flex flex-col md:flex-row shadow-2xl relative min-h-screen">
                         {/* Decorative Corners */}
                         <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                         <div className="absolute -top-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                         <div className="absolute -bottom-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                         <div className="absolute -bottom-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
 
-                        {/* Left Panel: Service Records */}
-                        <section className="w-full md:w-[60%] border-r border-grid-line dark:border-dark-grid-line flex flex-col flex-1 min-h-[160px] md:h-full overflow-hidden relative border-b border-grid-line dark:border-dark-grid-line">
-                            <div className="p-3 md:p-4 border-b border-grid-line dark:border-dark-grid-line bg-[#080808] flex items-center justify-between">
+                        {/* Left Panel: Service Records - Expanded to full height */}
+                        <section className="w-full md:w-[60%] border-r border-grid-line dark:border-dark-grid-line flex flex-col relative border-b border-grid-line dark:border-dark-grid-line h-fit min-h-screen">
+                            <div className="p-3 md:p-4 border-b border-grid-line dark:border-dark-grid-line bg-background/50 backdrop-blur-sm flex items-center justify-between sticky top-0 z-30">
                                 <h2 className="font-mono text-[10px] md:text-xs text-primary/80 dark:text-dark-primary/80 tracking-widest">[ SERVICE_RECORDS ]</h2>
                                 <span className="material-symbols-outlined text-xs text-muted dark:text-dark-muted">terminal</span>
                             </div>
-                            <div className="flex-1 flex flex-col overflow-y-auto">
+                            <div className="flex-1 flex flex-col">
                                 {service_records.map((item) => (
                                     <article
                                         key={item.id}
                                         onMouseEnter={() => setHoveredService(item.id)}
                                         onMouseLeave={() => setHoveredService(null)}
-                                        className={`w-full border-b border-grid-line dark:border-dark-grid-line p-3 md:p-5 hover:bg-primary/5 dark:hover:bg-dark-primary/5 group relative transition-all duration-300 flex flex-col gap-1 md:gap-2 cursor-crosshair ${hoveredService === item.id ? 'bg-[#0a0a0a]' : ''
+                                        className={`w-full border-b border-grid-line dark:border-dark-grid-line p-3 md:p-5 hover:bg-primary/5 dark:hover:bg-dark-primary/5 group relative transition-all duration-300 flex flex-col gap-1 md:gap-2 cursor-crosshair ${hoveredService === item.id ? 'bg-primary/10' : ''
                                             }`}
                                     >
                                         <div className={`absolute left-0 top-0 bottom-0 w-[2px] transition-colors duration-300 ${hoveredService === item.id ? 'bg-primary dark:bg-dark-primary' : 'bg-transparent'
@@ -102,8 +96,8 @@ export const Network = () => {
                             </div>
                         </section>
 
-                        {/* Right Panel: Skills */}
-                        <section className="w-full md:w-[40%] flex flex-col flex-initial md:flex-none h-auto md:h-full border-r md:border-r-0 border-b border-grid-line dark:border-dark-grid-line bg-[#050505] overflow-y-auto">
+                        {/* Right Panel: Skills - Fixed relative to camera during scan */}
+                        <section className="w-full md:w-[40%] flex flex-col flex-initial md:flex-none h-auto md:h-screen sticky top-0 border-r md:border-r border-b border-grid-line dark:border-dark-grid-line bg-[#050505]/80 backdrop-blur-md">
                             {/* Cloud Section */}
                             <div className="flex-1 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
                                 <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
@@ -142,8 +136,6 @@ export const Network = () => {
                         </section>
                     </div>
                 </main>
-
-
             </div>
         </div>
     );
