@@ -1,6 +1,7 @@
 import { useRef, useLayoutEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { Hero } from './components/Hero';
 import { Portfolio } from './components/Portfolio';
 import { Network } from './components/Network';
@@ -11,7 +12,7 @@ import { BackgroundGrid } from './components/BackgroundGrid';
 import { CameraOverlay } from './components/CameraOverlay';
 import { siteConfig } from './data/siteConfig';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 function App() {
   const componentRef = useRef<HTMLDivElement>(null);
@@ -23,6 +24,8 @@ function App() {
   const [vOffset, setVOffset] = useState(0);
   const [nOffset, setNOffset] = useState(0);
 
+  const activeSectionRef = useRef(0);
+  const mainTimeline = useRef<gsap.core.Timeline | null>(null);
 
   // Measure section heights to create the extended L-shaped path
   useLayoutEffect(() => {
@@ -56,93 +59,101 @@ function App() {
     const ctx = gsap.context(() => {
       if (!sliderRef.current || !componentRef.current) return;
 
-      const totalVOffset = vOffset + nOffset;
+      const totalDist = window.innerWidth * 3 + vOffset + nOffset;
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: componentRef.current,
           pin: true,
-          scrub: 1.5,
+          scrub: 0.3, // Much more responsive to input
           start: "top top",
-          end: () => "+=" + (window.innerWidth * 5 + totalVOffset),
+          end: () => "+=" + totalDist,
           invalidateOnRefresh: true,
-          onUpdate: (self) => setProgress(Math.round(self.progress * 100)),
+          onUpdate: (self) => {
+            const p = self.progress;
+            setProgress(Math.round(p * 100));
+
+            const currentPx = p * totalDist;
+            const w = window.innerWidth;
+
+            // 1. Determine active section (Distance-based thresholds)
+            let newSection = 0;
+            if (currentPx < w * 0.5) {
+              newSection = 0; // Hero
+            } else if (currentPx < w * 1.5 + vOffset) {
+              newSection = 1; // Portfolio
+            } else if (currentPx < w * 2.5 + vOffset + nOffset) {
+              newSection = 2; // Network
+            } else {
+              newSection = 3; // Credentials
+            }
+
+            if (newSection !== activeSectionRef.current) {
+              activeSectionRef.current = newSection;
+              setActiveSection(newSection);
+            }
+
+            // 2. Real-time latY calculation (HUD telemetry)
+            if (currentPx > w && currentPx < w + vOffset) {
+              // Inside Portfolio scan
+              setLatY((Math.abs(currentPx - w) / (vOffset || 1)) * 90);
+            } else if (currentPx > w * 2 + vOffset && currentPx < w * 2 + vOffset + nOffset) {
+              // Inside Network scan
+              setLatY((Math.abs(currentPx - (w * 2 + vOffset)) / (nOffset || 1)) * 90);
+            } else {
+              setLatY(0);
+            }
+          },
         }
       });
 
-      // THE EXTENDED L-PATH
+      mainTimeline.current = tl;
+
+      // THE DISTANCE-ACCURATE L-PATH
       tl.addLabel("hero")
-        // 1. Move to Portfolio (X)
+        // 1. Hero -> Portfolio
         .to(sliderRef.current, {
           x: () => -window.innerWidth,
-          duration: 2,
-          ease: "power2.inOut",
-          onStart: () => setActiveSection(1),
-          onReverseComplete: () => setActiveSection(0)
+          duration: window.innerWidth,
+          ease: "none",
         })
-        .addLabel("portfolio-top")
+        .addLabel("portfolio")
 
-        // 2. Scan down Portfolio (Y)
+        // 2. Portfolio Scan
         .to(sliderRef.current, {
           y: () => -vOffset,
-          duration: 3,
+          duration: vOffset,
           ease: "none",
-          onUpdate: function () {
-            const currentY = gsap.getProperty(sliderRef.current, "y") as number;
-            // LatY relative to first scan
-            if (activeSection === 1) {
-              setLatY(Math.abs((currentY / (vOffset || 1)) * 90));
-            }
-          }
         })
         .addLabel("portfolio-bottom")
 
-        // 3. Transition to Network (X)
+        // 3. Portfolio -> Network
         .to(sliderRef.current, {
           x: () => -window.innerWidth * 2,
-          duration: 2,
-          ease: "power2.inOut",
-          onStart: () => {
-            setActiveSection(2);
-          },
-          onReverseComplete: () => setActiveSection(1)
+          duration: window.innerWidth,
+          ease: "none",
         })
-        .addLabel("network-top")
+        .addLabel("network")
 
-        // 4. Scan down Network (Y) - Adding nOffset to the world's Y
+        // 4. Network Scan
         .to(sliderRef.current, {
           y: () => -(vOffset + nOffset),
-          duration: 3,
+          duration: nOffset,
           ease: "none",
-          onUpdate: function () {
-            const currentY = gsap.getProperty(sliderRef.current, "y") as number;
-            const absY = Math.abs(currentY);
-
-            if (activeSection === 2) {
-              const localY = absY - vOffset;
-              const netProgress = localY / (nOffset || 1);
-              setLatY(netProgress * 90);
-            }
-          }
-        })
-        // Parallel animation to keep the SKILLS section fixed relative to camera (Desktop only)
+        }, "<")
+        // Mirror the skills panel pin
         .to("#skills-panel", {
           y: () => window.innerWidth >= 768 ? nOffset : 0,
-          duration: 3,
+          duration: nOffset,
           ease: "none",
         }, "<")
         .addLabel("network-bottom")
 
-        // 5. Final transition to Credentials (X)
+        // 5. Network -> Credentials
         .to(sliderRef.current, {
           x: () => -window.innerWidth * 3,
-          duration: 2,
-          ease: "power2.inOut",
-          onStart: () => {
-            setActiveSection(3);
-            setLatY(0);
-          },
-          onReverseComplete: () => setActiveSection(2)
+          duration: window.innerWidth,
+          ease: "none",
         })
         .addLabel("credentials");
 
@@ -150,6 +161,20 @@ function App() {
 
     return () => ctx.revert();
   }, [vOffset, nOffset]);
+
+  const scrollToSection = (index: number) => {
+    const labels = ["hero", "portfolio", "network", "credentials"];
+    const label = labels[index];
+
+    if (mainTimeline.current && mainTimeline.current.scrollTrigger) {
+      const scrollPos = mainTimeline.current.scrollTrigger.labelToScroll(label);
+      gsap.to(window, {
+        duration: 2,
+        scrollTo: scrollPos,
+        ease: "power3.inOut"
+      });
+    }
+  };
 
   const getHeaderUpdates = () => {
     switch (activeSection) {
@@ -211,6 +236,7 @@ function App() {
             subtitle={subtitle}
             activeIndex={activeSection}
             coords={`TRAV: ${progress}% // LOC_X: ${(progress * 3.6).toFixed(2)}° // LAT_Y: ${latY.toFixed(2)}°`}
+            onSectionClick={scrollToSection}
           />
         </div>
 
