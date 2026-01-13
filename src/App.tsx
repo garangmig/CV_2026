@@ -135,13 +135,13 @@ function App() {
         })
         .addLabel("network")
 
-        // 4. Network Scan
+        // 4. Network Scan (Scrolled Service Records)
         .to(sliderRef.current, {
           y: () => -(vOffset + nOffset),
           duration: nOffset,
           ease: "none",
-        }, "<")
-        // Mirror the skills panel pin
+        })
+        // Counter-animation for Skills Panel: keep it fixed relative to camera
         .to("#skills-panel", {
           y: () => window.innerWidth >= 768 ? nOffset : 0,
           duration: nOffset,
