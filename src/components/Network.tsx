@@ -44,15 +44,15 @@ export const Network = () => {
         <div id="network-section" className="flex flex-col w-full relative">
             <div className="relative z-10 flex flex-col w-full">
                 <main className="flex-1 flex flex-col px-4 md:px-12 pt-20 pb-20 z-10">
-                    <div className="w-full h-full border-l border-t border-grid-line dark:border-dark-grid-line flex flex-col md:flex-row shadow-2xl relative min-h-screen">
+                    <div className="w-full h-full border-l border-t border-transparent dark:border-dark-transparent flex flex-col md:flex-row shadow-2xl relative min-h-screen">
                         {/* Decorative Corners */}
-                        <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
+                        {/* <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                         <div className="absolute -top-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                         <div className="absolute -bottom-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
-                        <div className="absolute -bottom-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
+                        <div className="absolute -bottom-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div> */}
 
                         {/* Left Panel: Service Records - Expanded to full height */}
-                        <section className="w-full md:w-[60%] border-r border-grid-line dark:border-dark-grid-line flex flex-col relative border-b border-grid-line dark:border-dark-grid-line h-fit min-h-screen">
+                        <section className="w-full md:w-[60%] border-t border-x border-grid-line dark:border-dark-grid-line flex flex-col relative h-fit min-h-screen">
                             <div className="p-3 md:p-4 border-b border-grid-line dark:border-dark-grid-line bg-background/50 backdrop-blur-sm flex items-center justify-between sticky top-0 z-30">
                                 <h2 className="font-mono text-[10px] md:text-xs text-primary/80 dark:text-dark-primary/80 tracking-widest">[ SERVICE_RECORDS ]</h2>
                                 <span className="material-symbols-outlined text-xs text-muted dark:text-dark-muted">terminal</span>
@@ -96,10 +96,10 @@ export const Network = () => {
                             </div>
                         </section>
 
-                        {/* Right Panel: Skills - Fixed relative to camera during scan */}
-                        <section className="w-full md:w-[40%] flex flex-col flex-initial md:flex-none h-auto md:h-screen sticky top-0 border-r md:border-r border-b border-grid-line dark:border-dark-grid-line bg-[#050505]/80 backdrop-blur-md">
+                        {/* Right Panel: Skills - Controlled by GSAP in App.tsx */}
+                        <section id="skills-panel" className="w-full md:w-[40%] flex flex-col md:flex-none h-[calc(100vh-10rem)] overflow-y-auto custom-scrollbar border-y md:border-r border-r border-grid-line dark:border-dark-grid-line bg-[#050505]/80 backdrop-blur-md sticky top-20">
                             {/* Cloud Section */}
-                            <div className="flex-1 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
+                            <div className="flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
                                 <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                                 <div className="flex justify-between items-start mb-3 md:mb-4">
                                     <h3 className="font-mono text-[10px] md:text-xs text-muted dark:text-dark-muted tracking-widest">[ CLOUD ]</h3>
@@ -111,7 +111,7 @@ export const Network = () => {
                             </div>
 
                             {/* DevOps Section */}
-                            <div className="flex-1 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
+                            <div className="flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
                                 <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                                 <div className="flex justify-between items-start mb-3 md:mb-4">
                                     <h3 className="font-mono text-[10px] md:text-xs text-muted dark:text-dark-muted tracking-widest">[ DEVOPS ]</h3>
@@ -123,7 +123,7 @@ export const Network = () => {
                             </div>
 
                             {/* Database Section */}
-                            <div className="flex-1 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
+                            <div className="flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
                                 <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                                 <div className="flex justify-between items-start mb-3 md:mb-4">
                                     <h3 className="font-mono text-[10px] md:text-xs text-muted dark:text-dark-muted tracking-widest">[ DATABASE ]</h3>

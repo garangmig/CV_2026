@@ -22,7 +22,7 @@ function App() {
   const [latY, setLatY] = useState(0);
   const [vOffset, setVOffset] = useState(0);
   const [nOffset, setNOffset] = useState(0);
-  const [currentScanY, setCurrentScanY] = useState(0);
+
 
   // Measure section heights to create the extended L-shaped path
   useLayoutEffect(() => {
@@ -104,7 +104,6 @@ function App() {
           ease: "power2.inOut",
           onStart: () => {
             setActiveSection(2);
-            setCurrentScanY(0);
           },
           onReverseComplete: () => setActiveSection(1)
         })
@@ -121,12 +120,17 @@ function App() {
 
             if (activeSection === 2) {
               const localY = absY - vOffset;
-              setCurrentScanY(localY);
               const netProgress = localY / (nOffset || 1);
               setLatY(netProgress * 90);
             }
           }
         })
+        // Parallel animation to keep the SKILLS section fixed relative to camera (Desktop only)
+        .to("#skills-panel", {
+          y: () => window.innerWidth >= 768 ? nOffset : 0,
+          duration: 3,
+          ease: "none",
+        }, "<")
         .addLabel("network-bottom")
 
         // 5. Final transition to Credentials (X)
@@ -187,7 +191,7 @@ function App() {
           className="w-screen flex-shrink-0"
           style={{ transform: `translateY(${vOffset}px)` }}
         >
-          <Network yOffset={currentScanY} />
+          <Network />
         </section>
 
         {/* CREDENTIALS: Offset by both Portfolio and Network scans */}
