@@ -59,13 +59,31 @@ function App() {
     const ctx = gsap.context(() => {
       if (!sliderRef.current || !componentRef.current) return;
 
-      const totalDist = window.innerWidth * 3 + vOffset + nOffset;
+      const SCAN_FACTOR = 3;
+      const BREAK_PX = 800; // Duration of the "jolting" stop
+      const w = 300; //window.innerWidth;
+      const vDuration = vOffset * SCAN_FACTOR;
+      const nDuration = nOffset * SCAN_FACTOR;
+
+      // DISTANCE SEGMENTS
+      const d1 = w;             // Hero -> Portfolio
+      const d2 = d1 + BREAK_PX; // Portfolio Arrival Pause
+      const d3 = d2 + vDuration; // Portfolio Vertical Scan
+      const d4 = d3 + BREAK_PX; // Portfolio Bottom Pause
+      const d5 = d4 + w;         // Portfolio -> Network arrival
+      const d6 = d5 + BREAK_PX; // Network Arrival Pause
+      const d7 = d6 + nDuration; // Network Vertical Scan
+      const d8 = d7 + BREAK_PX; // Network Bottom Pause
+      const d9 = d8 + w;         // Network -> Credentials arrival
+      const d10 = d9 + BREAK_PX; // Credentials Arrival Pause
+
+      const totalDist = d10;
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: componentRef.current,
           pin: true,
-          scrub: 0.3, // Much more responsive to input
+          scrub: 0.2,
           start: "top top",
           end: () => "+=" + totalDist,
           invalidateOnRefresh: true,
@@ -74,15 +92,14 @@ function App() {
             setProgress(Math.round(p * 100));
 
             const currentPx = p * totalDist;
-            const w = window.innerWidth;
 
-            // 1. Determine active section (Distance-based thresholds)
+            // 1. Determine active section (Distance-based thresholds at mid-transitions)
             let newSection = 0;
-            if (currentPx < w * 0.5) {
+            if (currentPx < d1 * 0.5) {
               newSection = 0; // Hero
-            } else if (currentPx < w * 1.5 + vOffset) {
+            } else if (currentPx < (d4 + d5) / 2) {
               newSection = 1; // Portfolio
-            } else if (currentPx < w * 2.5 + vOffset + nOffset) {
+            } else if (currentPx < (d8 + d9) / 2) {
               newSection = 2; // Network
             } else {
               newSection = 3; // Credentials
@@ -94,12 +111,12 @@ function App() {
             }
 
             // 2. Real-time latY calculation (HUD telemetry)
-            if (currentPx > w && currentPx < w + vOffset) {
+            if (currentPx > d2 && currentPx < d3) {
               // Inside Portfolio scan
-              setLatY((Math.abs(currentPx - w) / (vOffset || 1)) * 90);
-            } else if (currentPx > w * 2 + vOffset && currentPx < w * 2 + vOffset + nOffset) {
+              setLatY((Math.abs(currentPx - d2) / (vDuration || 1)) * 90);
+            } else if (currentPx > d6 && currentPx < d7) {
               // Inside Network scan
-              setLatY((Math.abs(currentPx - (w * 2 + vOffset)) / (nOffset || 1)) * 90);
+              setLatY((Math.abs(currentPx - d6) / (nDuration || 1)) * 90);
             } else {
               setLatY(0);
             }
@@ -109,53 +126,58 @@ function App() {
 
       mainTimeline.current = tl;
 
-      // THE DISTANCE-ACCURATE L-PATH
+      // THE DISTANCE-ACCURATE L-PATH WITH JOLTING STOPS
       tl.addLabel("hero")
         // 1. Hero -> Portfolio
         .to(sliderRef.current, {
           x: () => -window.innerWidth,
-          duration: window.innerWidth,
+          duration: d1,
           ease: "none",
         })
         .addLabel("portfolio")
+        .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
         // 2. Portfolio Scan
         .to(sliderRef.current, {
           y: () => -vOffset,
-          duration: vOffset,
+          duration: vDuration,
           ease: "none",
         })
         .addLabel("portfolio-bottom")
+        .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
         // 3. Portfolio -> Network
         .to(sliderRef.current, {
           x: () => -window.innerWidth * 2,
-          duration: window.innerWidth,
+          duration: w,
           ease: "none",
         })
         .addLabel("network")
+        .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
         // 4. Network Scan (Scrolled Service Records)
         .to(sliderRef.current, {
           y: () => -(vOffset + nOffset),
-          duration: nOffset,
+          duration: nDuration,
           ease: "none",
         })
         // Counter-animation for Skills Panel: keep it fixed relative to camera
         .to("#skills-panel", {
           y: () => window.innerWidth >= 768 ? nOffset : 0,
-          duration: nOffset,
+          duration: nDuration,
           ease: "none",
         }, "<")
         .addLabel("network-bottom")
+        .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
         // 5. Network -> Credentials
         .to(sliderRef.current, {
           x: () => -window.innerWidth * 3,
-          duration: window.innerWidth,
+          duration: w,
           ease: "none",
         })
-        .addLabel("credentials");
+        .addLabel("credentials")
+        .to({}, { duration: BREAK_PX }); // FINAL STOP
 
     }, componentRef);
 
