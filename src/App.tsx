@@ -62,11 +62,12 @@ function App() {
       const SCAN_FACTOR = 3;
       const BREAK_PX = 800; // Duration of the "jolting" stop
       const w = 300; //window.innerWidth;
+      const heroWidth = 0.75 * w; // Hero is 75vw instead of 100vw
       const vDuration = vOffset * SCAN_FACTOR;
       const nDuration = nOffset * SCAN_FACTOR;
 
       // DISTANCE SEGMENTS
-      const d1 = w;             // Hero -> Portfolio
+      const d1 = heroWidth;      // Hero -> Portfolio (reduced by 25%)
       const d2 = d1 + BREAK_PX; // Portfolio Arrival Pause
       const d3 = d2 + vDuration; // Portfolio Vertical Scan
       const d4 = d3 + BREAK_PX; // Portfolio Bottom Pause
@@ -128,9 +129,9 @@ function App() {
 
       // THE DISTANCE-ACCURATE L-PATH WITH JOLTING STOPS
       tl.addLabel("hero")
-        // 1. Hero -> Portfolio
+        // 1. Hero -> Portfolio (75% width)
         .to(sliderRef.current, {
-          x: () => -window.innerWidth,
+          x: () => -window.innerWidth * 0.75,
           duration: d1,
           ease: "none",
         })
@@ -146,9 +147,9 @@ function App() {
         .addLabel("portfolio-bottom")
         .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
-        // 3. Portfolio -> Network
+        // 3. Portfolio -> Network (compensating 25% Hero reduction)
         .to(sliderRef.current, {
-          x: () => -window.innerWidth * 2,
+          x: () => -window.innerWidth * 1.75,
           duration: w,
           ease: "none",
         })
@@ -170,9 +171,9 @@ function App() {
         .addLabel("network-bottom")
         .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
-        // 5. Network -> Credentials
+        // 5. Network -> Credentials (compensating 25% Hero reduction)
         .to(sliderRef.current, {
-          x: () => -window.innerWidth * 3,
+          x: () => -window.innerWidth * 2.75,
           duration: w,
           ease: "none",
         })
@@ -223,12 +224,12 @@ function App() {
         id="world-content"
         className="relative z-10 flex flex-row w-[400vw]"
       >
-        {/* HERO */}
-        <section className="w-screen h-screen flex-shrink-0">
+        {/* HERO - 75% of viewport */}
+        <section className="w-[75vw] flex-shrink-0">
           <Hero />
         </section>
 
-        {/* PORTFOLIO: Expands vertically */}
+        {/* PORTFOLIO: Expands vertically - 25% visible initially */}
         <section className="w-screen flex-shrink-0">
           <Portfolio />
         </section>
