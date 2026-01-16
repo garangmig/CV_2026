@@ -52,13 +52,13 @@ export const Credentials = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen w-full relative overflow-hidden text-secondary dark:text-dark-secondary">
+        <div className="flex flex-col md:h-screen w-full relative overflow-hidden text-secondary dark:text-dark-secondary">
             <div className="relative z-10 flex flex-col h-full w-full">
 
 
                 {/* Main scrollable area */}
-                <main className={`flex-1 flex flex-col px-4 md:px-12 overflow-y-auto ${siteConfig.scrollbar.classes} z-10 pt-20 pb-20`}>
-                    <div className="w-full min-h-[615px] md:min-h-0 h-full md:h-auto border-l border-b border-r border-t border-grid-line dark:border-dark-grid-line flex flex-col md:flex-row shadow-2xl relative">
+                <main className={`flex-1 flex flex-col px-4 md:px-12 z-10 pt-24 pb-20`}>
+                    <div className="w-full h-min md:min-h-0 md:h-auto border-l border-b border-r border-t border-grid-line dark:border-dark-grid-line flex flex-col md:flex-row shadow-2xl relative">
                         {/* Decorative corners */}
                         <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                         <div className="absolute -top-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>

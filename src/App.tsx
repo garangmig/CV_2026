@@ -21,8 +21,10 @@ function App() {
   const [activeSection, setActiveSection] = useState(0);
   const [progress, setProgress] = useState(0);
   const [latY, setLatY] = useState(0);
+  const [hOffset, setHOffset] = useState(0);
   const [vOffset, setVOffset] = useState(0);
   const [nOffset, setNOffset] = useState(0);
+  const [cOffset, setCOffset] = useState(0);
 
   const activeSectionRef = useRef(0);
   const mainTimeline = useRef<gsap.core.Timeline | null>(null);
@@ -30,8 +32,15 @@ function App() {
   // Measure section heights to create the extended L-shaped path
   useLayoutEffect(() => {
     const calculateOffsets = () => {
+      const heroEl = document.querySelector('#hero-section');
       const portfolioEl = document.querySelector('#portfolio-section');
       const networkEl = document.querySelector('#network-section');
+      const credentialsEl = document.querySelector('#credentials-section');
+
+      if (heroEl) {
+        const hHeight = heroEl.scrollHeight - window.innerHeight;
+        setHOffset(hHeight > 0 ? hHeight : 0);
+      }
 
       if (portfolioEl) {
         const pHeight = portfolioEl.scrollHeight - window.innerHeight;
@@ -41,6 +50,11 @@ function App() {
       if (networkEl) {
         const nHeight = networkEl.scrollHeight - window.innerHeight;
         setNOffset(nHeight > 0 ? nHeight : 0);
+      }
+
+      if (credentialsEl) {
+        const cHeight = credentialsEl.scrollHeight - window.innerHeight;
+        setCOffset(cHeight > 0 ? cHeight : 0);
       }
     };
 
@@ -62,22 +76,28 @@ function App() {
       const SCAN_FACTOR = 3;
       const BREAK_PX = 800; // Duration of the "jolting" stop
       const w = 300; //window.innerWidth;
+      const hDuration = hOffset;
       const vDuration = vOffset * SCAN_FACTOR;
       const nDuration = nOffset * SCAN_FACTOR;
+      const cDuration = cOffset * SCAN_FACTOR;
 
       // DISTANCE SEGMENTS
-      const d1 = w;             // Hero -> Portfolio
-      const d2 = d1 + BREAK_PX; // Portfolio Arrival Pause
-      const d3 = d2 + vDuration; // Portfolio Vertical Scan
-      const d4 = d3 + BREAK_PX; // Portfolio Bottom Pause
-      const d5 = d4 + w;         // Portfolio -> Network arrival
-      const d6 = d5 + BREAK_PX; // Network Arrival Pause
-      const d7 = d6 + nDuration; // Network Vertical Scan
-      const d8 = d7 + BREAK_PX; // Network Bottom Pause
-      const d9 = d8 + w;         // Network -> Credentials arrival
-      const d10 = d9 + BREAK_PX; // Credentials Arrival Pause
+      const d1 = hDuration; // Hero Vertical Scan
+      const d2 = d1 + BREAK_PX; // Hero Bottom Pause
+      const d3 = d2 + w;        // Hero -> Portfolio
+      const d4 = d3 + BREAK_PX; // Portfolio Arrival Pause
+      const d5 = d4 + vDuration; // Portfolio Vertical Scan
+      const d6 = d5 + BREAK_PX; // Portfolio Bottom Pause
+      const d7 = d6 + w;         // Portfolio -> Network arrival
+      const d8 = d7 + BREAK_PX; // Network Arrival Pause
+      const d9 = d8 + nDuration; // Network Vertical Scan
+      const d10 = d9 + BREAK_PX; // Network Bottom Pause
+      const d11 = d10 + w;         // Network -> Credentials arrival
+      const d12 = d11 + BREAK_PX; // Credentials Arrival Pause
+      const d13 = d12 + cDuration; // Credentials Vertical Scan
+      const d14 = d13 + BREAK_PX; // Credentials Bottom Pause
 
-      const totalDist = d10;
+      const totalDist = d14;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -95,11 +115,11 @@ function App() {
 
             // 1. Determine active section (Distance-based thresholds at mid-transitions)
             let newSection = 0;
-            if (currentPx < d1 * 0.5) {
+            if (currentPx < (d2 + d3) / 2) {
               newSection = 0; // Hero
-            } else if (currentPx < (d4 + d5) / 2) {
+            } else if (currentPx < (d6 + d7) / 2) {
               newSection = 1; // Portfolio
-            } else if (currentPx < (d8 + d9) / 2) {
+            } else if (currentPx < (d10 + d11) / 2) {
               newSection = 2; // Network
             } else {
               newSection = 3; // Credentials
@@ -111,12 +131,18 @@ function App() {
             }
 
             // 2. Real-time latY calculation (HUD telemetry)
-            if (currentPx > d2 && currentPx < d3) {
+            if (currentPx < d1) {
+              // Inside Hero scan
+              setLatY((currentPx / (hDuration || 1)) * 90);
+            } else if (currentPx > d4 && currentPx < d5) {
               // Inside Portfolio scan
-              setLatY((Math.abs(currentPx - d2) / (vDuration || 1)) * 90);
-            } else if (currentPx > d6 && currentPx < d7) {
+              setLatY((Math.abs(currentPx - d4) / (vDuration || 1)) * 90);
+            } else if (currentPx > d8 && currentPx < d9) {
               // Inside Network scan
-              setLatY((Math.abs(currentPx - d6) / (nDuration || 1)) * 90);
+              setLatY((Math.abs(currentPx - d8) / (nDuration || 1)) * 90);
+            } else if (currentPx > d12 && currentPx < d13) {
+              // Inside Credentials scan
+              setLatY((Math.abs(currentPx - d12) / (cDuration || 1)) * 90);
             } else {
               setLatY(0);
             }
@@ -128,25 +154,34 @@ function App() {
 
       // THE DISTANCE-ACCURATE L-PATH WITH JOLTING STOPS
       tl.addLabel("hero")
-        // 1. Hero -> Portfolio
+        // 1. Hero Vertical Scan
+        .to(sliderRef.current, {
+          y: () => -hOffset,
+          duration: hDuration,
+          ease: "none",
+        })
+        .addLabel("hero-bottom")
+        .to({}, { duration: BREAK_PX }) // SUDDEN STOP
+
+        // 2. Hero -> Portfolio
         .to(sliderRef.current, {
           x: () => -window.innerWidth,
-          duration: d1,
+          duration: w,
           ease: "none",
         })
         .addLabel("portfolio")
         .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
-        // 2. Portfolio Scan
+        // 3. Portfolio Scan
         .to(sliderRef.current, {
-          y: () => -vOffset,
+          y: () => -(hOffset + vOffset),
           duration: vDuration,
           ease: "none",
         })
         .addLabel("portfolio-bottom")
         .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
-        // 3. Portfolio -> Network
+        // 4. Portfolio -> Network
         .to(sliderRef.current, {
           x: () => -window.innerWidth * 2,
           duration: w,
@@ -155,9 +190,9 @@ function App() {
         .addLabel("network")
         .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
-        // 4. Network Scan (Scrolled Service Records)
+        // 5. Network Scan (Scrolled Service Records)
         .to(sliderRef.current, {
-          y: () => -(vOffset + nOffset),
+          y: () => -(hOffset + vOffset + nOffset),
           duration: nDuration,
           ease: "none",
         })
@@ -170,19 +205,28 @@ function App() {
         .addLabel("network-bottom")
         .to({}, { duration: BREAK_PX }) // SUDDEN STOP
 
-        // 5. Network -> Credentials
+        // 6. Network -> Credentials
         .to(sliderRef.current, {
           x: () => -window.innerWidth * 3,
           duration: w,
           ease: "none",
         })
         .addLabel("credentials")
+        .to({}, { duration: BREAK_PX }) // SUDDEN STOP
+
+        // 7. Credentials Scan
+        .to(sliderRef.current, {
+          y: () => -(hOffset + vOffset + nOffset + cOffset),
+          duration: cDuration,
+          ease: "none",
+        })
+        .addLabel("credentials-bottom")
         .to({}, { duration: BREAK_PX }); // FINAL STOP
 
     }, componentRef);
 
     return () => ctx.revert();
-  }, [vOffset, nOffset]);
+  }, [hOffset, vOffset, nOffset, cOffset]);
 
   const scrollToSection = (index: number) => {
     const labels = ["hero", "portfolio", "network", "credentials"];
@@ -224,27 +268,31 @@ function App() {
         className="relative z-10 flex flex-row w-[400vw]"
       >
         {/* HERO */}
-        <section className="w-screen h-screen flex-shrink-0">
+        <section id="hero-section" className="w-screen min-h-screen h-min flex-shrink-0">
           <Hero />
         </section>
 
         {/* PORTFOLIO: Expands vertically */}
-        <section className="w-screen flex-shrink-0">
+        <section
+          className="w-screen flex-shrink-0"
+          style={{ transform: `translateY(${hOffset}px)` }}
+        >
           <Portfolio />
         </section>
 
         {/* NETWORK: Expands vertically, offset by Portfolio's scan */}
         <section
           className="w-screen flex-shrink-0"
-          style={{ transform: `translateY(${vOffset}px)` }}
+          style={{ transform: `translateY(${hOffset + vOffset}px)` }}
         >
           <Network />
         </section>
 
         {/* CREDENTIALS: Offset by both Portfolio and Network scans */}
         <section
-          className="w-screen h-screen flex-shrink-0"
-          style={{ transform: `translateY(${vOffset + nOffset}px)` }}
+          id="credentials-section"
+          className="w-screen min-h-screen h-min flex-shrink-0"
+          style={{ transform: `translateY(${hOffset + vOffset + nOffset}px)` }}
         >
           <Credentials />
         </section>
