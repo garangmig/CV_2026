@@ -10,7 +10,9 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { BackgroundGrid } from './components/BackgroundGrid';
 import { CameraOverlay } from './components/CameraOverlay';
+import { ProjectModal } from './components/ProjectModal';
 import { siteConfig } from './data/siteConfig';
+import type { Project } from './types/project';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -25,6 +27,8 @@ function App() {
   const [vOffset, setVOffset] = useState(0);
   const [nOffset, setNOffset] = useState(0);
   const [cOffset, setCOffset] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const activeSectionRef = useRef(0);
   const mainTimeline = useRef<gsap.core.Timeline | null>(null);
@@ -228,6 +232,20 @@ function App() {
     return () => ctx.revert();
   }, [hOffset, vOffset, nOffset, cOffset]);
 
+  // Handle ScrollTrigger disabling when modal is open
+  useLayoutEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      ScrollTrigger.getAll().forEach(t => t.disable(false));
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      ScrollTrigger.getAll().forEach(t => t.enable());
+      ScrollTrigger.refresh();
+    }
+  }, [isModalOpen]);
+
   const scrollToSection = (index: number) => {
     const labels = ["hero", "portfolio", "network", "credentials"];
     const label = labels[index];
@@ -277,7 +295,10 @@ function App() {
           className="w-screen flex-shrink-0"
           style={{ transform: `translateY(${hOffset}px)` }}
         >
-          <Portfolio />
+          <Portfolio onProjectSelect={(proj) => {
+            setSelectedProject(proj);
+            setIsModalOpen(true);
+          }} />
         </section>
 
         {/* NETWORK: Expands vertically, offset by Portfolio's scan */}
@@ -316,6 +337,17 @@ function App() {
           <Footer status={true} />
         </div>
       </div>
+
+      {/* PROJECT MODAL: Outside transformed containers */}
+      {selectedProject && isModalOpen && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedProject(null);
+          }}
+        />
+      )}
 
     </div>
   );

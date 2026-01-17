@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { projects } from '../data/projects';
-import { ProjectModal } from './ProjectModal';
 import type { Project } from '../types/project';
 
 const FillerCard = ({ className }: { className: string }) => (
@@ -24,8 +22,14 @@ const FillerCard = ({ className }: { className: string }) => (
     </article>
 );
 
-export const Portfolio = () => {
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+interface PortfolioProps {
+    onProjectSelect?: (project: Project) => void;
+}
+
+export const Portfolio: React.FC<PortfolioProps> = ({ onProjectSelect }) => {
+    const handleProjectClick = (proj: Project) => {
+        onProjectSelect?.(proj);
+    };
 
     return (
         <div id="portfolio-section" className="flex flex-col w-full relative">
@@ -35,10 +39,10 @@ export const Portfolio = () => {
                         {projects.map((proj) => (
                             <article
                                 key={proj.id}
-                                onClick={() => setSelectedProject(proj)}
+                                onClick={() => handleProjectClick(proj)}
                                 className="relative border-r border-b border-grid-line dark:border-dark-grid-line group overflow-hidden cursor-pointer h-full min-h-[220px] md:min-h-[350px] flex flex-col transition-all duration-500 shadow-2xl"
                             >
-                                {/* Top and Middle Area (Image Background) */}
+                                {/* ... rest of the article content remains the same ... */}
                                 <div className="relative flex-1 flex flex-col overflow-hidden pt-4 px-4 pb-0">
                                     <div className="absolute top-4 left-4 right-4 bottom-0 z-0 overflow-hidden border-x border-t border-grid-line/30 dark:border-dark-grid-line/30">
                                         <img
@@ -46,17 +50,12 @@ export const Portfolio = () => {
                                             alt={proj.title}
                                             className="w-full h-full object-fill opacity-60 group-hover:opacity-100 transition-all duration-700"
                                         />
-                                        {/* Blue filter overlay: active by default, fades on hover */}
                                         <div className="absolute inset-0 bg-primary/5 dark:bg-primary/5 mix-blend-color group-hover:bg-transparent transition-all duration-700 z-10"></div>
                                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,theme(colors.primary/5%)_0%,transparent_100%)] dark:bg-[radial-gradient(circle_at_center,theme(colors.dark.primary/5%)_0%,transparent_100%)] group-hover:opacity-0 transition-opacity duration-700 z-10"></div>
-                                        {/* Darkening gradient for text readability - intensifies on hover */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/20 dark:from-dark-background/60 dark:via-transparent dark:to-dark-background/20 group-hover:from-background group-hover:via-background/20 dark:group-hover:from-dark-background dark:group-hover:via-dark-background/20 transition-all duration-700 z-20"></div>
-
-                                        {/* Bottom 35% shadow for title readability - intensifies on hover */}
                                         <div className="absolute bottom-0 left-0 right-0 h-[35%] bg-gradient-to-t from-background/40 to-transparent dark:from-dark-background/40  group-hover:from-background/80 group-hover:via-background/80 dark:group-hover:from-dark-background dark:group-hover:via-dark-background/80 transition-all duration-500 z-21"></div>
                                     </div>
 
-                                    {/* Content inside Image Area (ID to Title) */}
                                     <div className="relative z-30 flex flex-col h-full p-3 md:p-6 md:pb-4">
                                         <div className="flex justify-between items-start mb-auto">
                                             <span className="font-mono text-[8px] md:text-[10px] text-primary dark:text-dark-primary tracking-[0.2em] bg-background/70 dark:bg-dark-background/70 backdrop-blur-sm px-2 py-0.5 md:px-3 md:py-1 border border-primary/40 dark:border-dark-primary/40 shadow-[0_0_3px_theme(colors.primary/60%)] dark:shadow-[0_0_3px_theme(colors.dark.primary/60%)] group-hover:opacity-0 transition-opacity duration-700 ease-in-out">
@@ -75,7 +74,6 @@ export const Portfolio = () => {
                                     </div>
                                 </div>
 
-                                {/* Tags Area (Outside Image/Bottom) */}
                                 <div className="relative z-20 p-3 md:p-6 md:pt-2 border-t border-grid-line/30 dark:border-dark-grid-line/30">
                                     <div className="h-[1px] w-full bg-grid-line dark:bg-dark-grid-line relative overflow-hidden mb-1 md:mb-3">
                                         <div className="absolute inset-0 bg-primary dark:bg-dark-primary w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
@@ -85,13 +83,11 @@ export const Portfolio = () => {
                                     </p>
                                 </div>
 
-                                {/* Corner Crosshairs */}
                                 <div className="absolute -top-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-30">+</div>
                                 <div className="absolute -bottom-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-30">+</div>
                             </article>
                         ))}
 
-                        {/* Filler Cards to complete the grid */}
                         <FillerCard
                             className={`${projects.length % 2 !== 0 ? 'flex' : 'hidden'} ${projects.length % 3 !== 0 ? 'lg:flex' : 'lg:hidden'}`}
                         />
@@ -100,16 +96,7 @@ export const Portfolio = () => {
                         />
                     </div>
                 </main>
-
-
             </div>
-
-            {selectedProject && (
-                <ProjectModal
-                    project={selectedProject}
-                    onClose={() => setSelectedProject(null)}
-                />
-            )}
         </div>
     );
 };

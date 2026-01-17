@@ -69,8 +69,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center md:p-2 lg:p-4 animate-in fade-in duration-300"
+            className="overscroll-none fixed inset-0 z-50 w-[100vw] h-[100vh] flex items-center justify-center md:p-2 lg:p-4 animate-in fade-in duration-300"
             onClick={onClose}
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
         >
             <div className="absolute inset-0 bg-background/95 dark:bg-dark-background/95 backdrop-blur-[2px]"></div>
 
