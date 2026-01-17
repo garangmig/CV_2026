@@ -30,7 +30,7 @@ export const Portfolio = () => {
     return (
         <div id="portfolio-section" className="flex flex-col w-full relative">
             <div className="relative z-10 flex flex-col w-full">
-                <main className="flex-1 flex flex-col px-4 md:px-12 z-10 pb-20 pt-20">
+                <main className="flex-1 flex flex-col px-4 md:px-12 z-10 pb-16 md:pb-20 pt-24 md:pt-20">
                     <div className="w-full border-l border-t border-grid-line dark:border-dark-grid-line grid grid-cols-2 lg:grid-cols-3 shadow-2xl">
                         {projects.map((proj) => (
                             <article

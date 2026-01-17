@@ -1,6 +1,6 @@
 import { service_records } from '../data/service_records';
 import { SKILLS_REGISTRY } from '../data/skills';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useLayoutEffect } from 'react';
 
 export const Network = () => {
     const [hoveredService, setHoveredService] = useState<string | null>(null);
@@ -19,6 +19,44 @@ export const Network = () => {
         const service = service_records.find(s => s.id === hoveredService);
         return new Set(service?.skillsUsed || []);
     }, [hoveredService]);
+
+    const skillsRef = useRef<HTMLDivElement>(null);
+    const serviceRecordsRef = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+        const updatePosition = () => {
+            if (!skillsRef.current) return;
+
+            if (window.innerWidth < 768 && window.innerHeight > 568) {
+                const viewportHeight = window.innerHeight;
+                const skillsHeight = skillsRef.current.offsetHeight;
+                const HeaderHeight = 6 * 16; // 4rem approximation
+                const footerHeight = 4 * 16; // 4rem approximation
+
+                // Calculate top position to pin to bottom
+                const topPosition = viewportHeight - skillsHeight - HeaderHeight - footerHeight;
+                skillsRef.current.style.top = `${topPosition}px`;
+
+                // Update service records padding-bottom
+                if (serviceRecordsRef.current) {
+                    const serviceRecordsPaddingBottom = skillsHeight;
+                    serviceRecordsRef.current.style.paddingBottom = `${serviceRecordsPaddingBottom}px`;
+                }
+            } else {
+                // Reset for desktop
+
+                skillsRef.current.style.top = '';
+
+                if (serviceRecordsRef.current) {
+                    serviceRecordsRef.current.style.paddingBottom = '';
+                }
+            }
+        };
+
+        updatePosition();
+        window.addEventListener('resize', updatePosition);
+        return () => window.removeEventListener('resize', updatePosition);
+    }, []);
 
     const renderSkill = (skill: any) => {
         const isActive = activeSkills.has(skill.id);
@@ -43,7 +81,7 @@ export const Network = () => {
     return (
         <div id="network-section" className="flex flex-col w-full relative">
             <div className="relative z-10 flex flex-col w-full">
-                <main className="flex-1 flex flex-col px-4 md:px-12 pt-20 pb-20 z-10">
+                <main className="flex-1 flex flex-col px-4 md:px-12 z-10 pt-24 md:pt-20 pb-16 md:pb-20">
                     <div className="w-full h-full border-l border-t border-transparent dark:border-dark-transparent flex flex-col md:flex-row shadow-2xl relative min-h-screen">
                         {/* Decorative Corners */}
                         {/* <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
@@ -52,7 +90,10 @@ export const Network = () => {
                         <div className="absolute -bottom-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div> */}
 
                         {/* Left Panel: Service Records - Expanded to full height */}
-                        <section className="w-full md:w-[60%] border-t border-x border-grid-line dark:border-dark-grid-line flex flex-col relative h-fit min-h-screen">
+                        <section
+                            id="service-records-panel"
+                            ref={serviceRecordsRef}
+                            className="w-full md:w-[60%] border-t border-x border-grid-line dark:border-dark-grid-line flex flex-col relative h-fit min-h-screen">
                             <div className="p-3 md:p-4 border-b border-grid-line dark:border-dark-grid-line bg-background/50 backdrop-blur-sm flex items-center justify-between sticky top-0 z-30">
                                 <h2 className="font-mono text-[10px] md:text-xs text-primary/80 dark:text-dark-primary/80 tracking-widest">[ SERVICE_RECORDS ]</h2>
                                 <span className="material-symbols-outlined text-xs text-muted dark:text-dark-muted">terminal</span>
@@ -97,9 +138,13 @@ export const Network = () => {
                         </section>
 
                         {/* Right Panel: Skills - Controlled by GSAP in App.tsx */}
-                        <section id="skills-panel" className="w-full md:w-[40%] flex flex-col md:flex-none h-[calc(100vh-10rem)] overflow-y-auto custom-scrollbar border-y md:border-r border-r border-grid-line dark:border-dark-grid-line bg-[#050505]/80 backdrop-blur-md sticky top-20">
+                        <section
+                            id="skills-panel"
+                            ref={skillsRef}
+                            className="w-full md:w-[40%] flex flex-col md:flex-none overflow-y-auto custom-scrollbar border-y border-r border-l md:border-l-0 md:border-r border-grid-line dark:border-dark-grid-line bg-[#050505]/80 backdrop-blur-md absolute h-min max-h-[55vh] sh:max-h-fit sh:overflow-y-hidden sh:relative z-40 md:sticky md:top-20 md:h-[calc(100vh-10rem)] md:max-h-none"
+                        >
                             {/* Cloud Section */}
-                            <div className="flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
+                            <div className="md:flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
                                 <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                                 <div className="flex justify-between items-start mb-3 md:mb-4">
                                     <h3 className="font-mono text-[10px] md:text-xs text-muted dark:text-dark-muted tracking-widest">[ CLOUD ]</h3>
@@ -111,7 +156,7 @@ export const Network = () => {
                             </div>
 
                             {/* DevOps Section */}
-                            <div className="flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
+                            <div className="md:flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
                                 <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                                 <div className="flex justify-between items-start mb-3 md:mb-4">
                                     <h3 className="font-mono text-[10px] md:text-xs text-muted dark:text-dark-muted tracking-widest">[ DEVOPS ]</h3>
@@ -123,7 +168,7 @@ export const Network = () => {
                             </div>
 
                             {/* Database Section */}
-                            <div className="flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
+                            <div className="md:flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">
                                 <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                                 <div className="flex justify-between items-start mb-3 md:mb-4">
                                     <h3 className="font-mono text-[10px] md:text-xs text-muted dark:text-dark-muted tracking-widest">[ DATABASE ]</h3>

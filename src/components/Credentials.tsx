@@ -57,7 +57,7 @@ export const Credentials = () => {
 
 
                 {/* Main scrollable area */}
-                <main className={`flex-1 flex flex-col px-4 md:px-12 z-10 pt-24 pb-20`}>
+                <main className={`flex-1 flex flex-col px-4 md:px-12 z-10 pt-24 md:pt-20 pb-16 md:pb-20`}>
                     <div className="w-full h-min md:min-h-0 md:h-auto border-l border-b border-r border-t border-grid-line dark:border-dark-grid-line flex flex-col md:flex-row shadow-2xl relative">
                         {/* Decorative corners */}
                         <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>

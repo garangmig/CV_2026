@@ -198,7 +198,7 @@ function App() {
         })
         // Counter-animation for Skills Panel: keep it fixed relative to camera
         .to("#skills-panel", {
-          y: () => window.innerWidth >= 768 ? nOffset : 0,
+          y: () => window.innerHeight <= 568 ? 0 : nOffset, // Apply to both mobile and desktop to keep fixed/pinned
           duration: nDuration,
           ease: "none",
         }, "<")

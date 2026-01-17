@@ -38,7 +38,10 @@ export default {
             },
             backgroundImage: {
                 'tech-grid': "linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px)",
-            }
+            },
+            screens: {
+                'sh': { 'raw': '(max-height: 568px)' },
+            },
         },
     },
     plugins: [],
