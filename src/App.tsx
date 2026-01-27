@@ -300,7 +300,7 @@ function App() {
   const { title, subtitle } = getHeaderUpdates();
 
   return (
-    <div ref={componentRef} className="relative w-full h-[100dvh] bg-background-dark text-white font-display antialiased">
+    <div ref={componentRef} className="select-none relative w-full h-[100dvh] bg-background-dark text-white font-display antialiased">
 
       {/* GLOBAL BACKGROUND */}
       <div className="absolute inset-0 z-0 pointer-events-none">

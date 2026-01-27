@@ -96,7 +96,7 @@ export const Header = ({ title, subtitle, activeIndex, coords, onSectionClick }:
 
                 {/* Navigation Bars */}
                 <div className="flex flex-col gap-1 order-2 md:order-1">
-                    <div ref={barsRef} className="flex w-full gap-2 h-1.5 items-center">
+                    <div ref={barsRef} className="flex w-full gap-2 h-2.5 md:h-1.5 items-center">
                         {[0, 1, 2, 3].map((idx) => (
                             <div
                                 key={idx}
@@ -108,11 +108,11 @@ export const Header = ({ title, subtitle, activeIndex, coords, onSectionClick }:
                                 {idx !== activeIndex && (
                                     <div className="absolute top-full left-0 w-full opacity-0 group-hover:opacity-100 group-hover:top-full transition-all duration-200 pointer-events-none z-50">
                                         {/* Dropdown-style Tooltip Content */}
-                                        <div className="bg-background-dark/95 backdrop-blur-xl border-x border-b border-primary/30 flex flex-col items-center pt-2 pb-3 shadow-[0_15px_30px_rgba(0,0,0,0.8)] min-h-[60px]">
+                                        <div className="bg-background/70 backdrop-blur-xl border-x border-b border-primary/30 flex flex-col items-center pt-2 pb-3 shadow-[0_15px_30px_rgba(0,0,0,0.8)] min-h-[60px]">
                                             {/* Decorative Top Accent */}
                                             <div className="w-px h-4 bg-gradient-to-b from-primary to-transparent mb-2" />
 
-                                            <span className="text-[7px] md:text-[8px] font-mono leading-none text-white/90 font-black tracking-widest uppercase [writing-mode:vertical-lr] md:[writing-mode:horizontal-tb] rotate-180 md:rotate-0">
+                                            <span className="text-[20px] md:text-[24px] font-bebas leading-none text-white/90 font-black tracking-widest uppercase [writing-mode:vertical-lr] md:[writing-mode:horizontal-tb] rotate-180 md:rotate-0">
                                                 {sectionTitles[idx].replace(/^\d+_/, '')}
                                             </span>
 

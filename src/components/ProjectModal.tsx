@@ -114,6 +114,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                             )}
 
                             <div className="absolute bottom-4 left-4 font-mono text-[10px] text-secondary dark:text-dark-secondary tracking-widest bg-background/50 dark:bg-dark-background/50 px-2 py-1 border border-primary/20 dark:border-dark-primary/20 z-30 uppercase">FIG_1.0 // {mainTitle}</div>
+                            <div
+                                onContextMenu={(e) => e.preventDefault()} // Bloquea click derecho
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    zIndex: 10, // Asegura que esté por ENCIMA de la imagen
+                                    backgroundColor: 'rgba(0,0,0,0)', // Totalmente transparente
+                                    cursor: 'default'
+                                }}
+                            />
                         </div>
                     </div>
 
@@ -130,6 +143,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                                 ) : (
                                     <span className="material-symbols-outlined text-4xl text-grid-line/50 dark:text-dark-grid-line/50 font-thin">code_blocks</span>
                                 )}
+                                <div
+                                    onContextMenu={(e) => e.preventDefault()} // Bloquea click derecho
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        zIndex: 10, // Asegura que esté por ENCIMA de la imagen
+                                        backgroundColor: 'rgba(0,0,0,0)', // Totalmente transparente
+                                        cursor: 'default'
+                                    }}
+                                />
                             </div>
                             <div className="absolute -bottom-4 left-0 font-mono text-[9px] text-muted dark:text-dark-muted uppercase">
                                 {secondaryTitle1}
@@ -146,6 +172,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                                 ) : (
                                     <span className="material-symbols-outlined text-4xl text-grid-line/50 dark:text-dark-grid-line/50 font-thin">data_array</span>
                                 )}
+                                <div
+                                    onContextMenu={(e) => e.preventDefault()} // Bloquea click derecho
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        zIndex: 10, // Asegura que esté por ENCIMA de la imagen
+                                        backgroundColor: 'rgba(0,0,0,0)', // Totalmente transparente
+                                        cursor: 'default'
+                                    }}
+                                />
                             </div>
                             <div className="absolute -bottom-4 left-0 font-mono text-[9px] text-muted dark:text-dark-muted uppercase">
                                 {secondaryTitle2}
@@ -200,6 +239,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                                                 <div className="absolute bottom-2 left-2 font-mono text-[8px] text-secondary dark:text-dark-secondary tracking-widest bg-background/50 dark:bg-dark-background/50 px-2 py-0.5 border border-primary/20 dark:border-dark-primary/20 z-30 uppercase">
                                                     FIG_{idx + 1}.0 // {media.title || "VIEW_DETAIL"}
                                                 </div>
+                                                <div
+                                                    onContextMenu={(e) => e.preventDefault()} // Bloquea click derecho
+                                                    style={{
+                                                        position: 'absolute',
+                                                        top: 0,
+                                                        left: 0,
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        zIndex: 10, // Asegura que esté por ENCIMA de la imagen
+                                                        backgroundColor: 'rgba(0,0,0,0)', // Totalmente transparente
+                                                        cursor: 'default'
+                                                    }}
+                                                />
                                             </div>
                                         ))
                                     ) : (
@@ -212,6 +264,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                                             <div className="absolute bottom-2 left-2 font-mono text-[8px] text-secondary dark:text-dark-secondary tracking-widest bg-background/50 dark:bg-dark-background/50 px-2 py-0.5 border border-primary/20 dark:border-dark-primary/20 z-30 uppercase">
                                                 FIG_1.0 // MAIN_ICON
                                             </div>
+                                            <div
+                                                onContextMenu={(e) => e.preventDefault()} // Bloquea click derecho
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: 0,
+                                                    left: 0,
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    zIndex: 10, // Asegura que esté por ENCIMA de la imagen
+                                                    backgroundColor: 'rgba(0,0,0,0)', // Totalmente transparente
+                                                    cursor: 'default'
+                                                }}
+                                            />
                                         </div>
                                     )}
                                 </div>

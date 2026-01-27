@@ -35,6 +35,7 @@ export default {
             fontFamily: {
                 "display": ["Inter", "sans-serif"],
                 "mono": ["JetBrains Mono", "monospace"],
+                "bebas": ['"Bebas Neue"', 'sans-serif'],
             },
             backgroundImage: {
                 'tech-grid': "linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px)",
