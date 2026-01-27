@@ -82,7 +82,7 @@ export const Network = () => {
         <div id="network-section" className="flex flex-col w-full relative">
             <div className="relative z-10 flex flex-col w-full">
                 <main className="flex-1 flex flex-col px-4 md:px-12 z-10 pt-24 md:pt-20 pb-16 md:pb-20">
-                    <div className="w-full h-full border-l border-t border-transparent dark:border-dark-transparent flex flex-col md:flex-row shadow-2xl relative min-h-screen">
+                    <div className="w-full h-full border-l border-t border-transparent dark:border-dark-transparent flex flex-col md:flex-row shadow-2xl relative min-h-[100dvh] transition-[min-height] duration-500 ease-in-out">
                         {/* Decorative Corners */}
                         {/* <div className="absolute -top-[6px] -left-[5px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
                         <div className="absolute -top-[6px] -right-[4px] text-grid-line dark:text-dark-grid-line font-mono text-xs pointer-events-none z-10">+</div>
@@ -93,7 +93,7 @@ export const Network = () => {
                         <section
                             id="service-records-panel"
                             ref={serviceRecordsRef}
-                            className="w-full md:w-[60%] border-t border-x border-grid-line dark:border-dark-grid-line flex flex-col relative h-fit min-h-screen">
+                            className="w-full md:w-[60%] border-t border-x border-grid-line dark:border-dark-grid-line flex flex-col relative h-fit min-h-[100dvh] transition-[min-height] duration-500 ease-in-out">
                             <div className="p-3 md:p-4 border-b border-grid-line dark:border-dark-grid-line bg-background/50 backdrop-blur-sm flex items-center justify-between sticky top-0 z-30">
                                 <h2 className="font-mono text-[10px] md:text-xs text-primary/80 dark:text-dark-primary/80 tracking-widest">[ SERVICE_RECORDS ]</h2>
                                 <span className="material-symbols-outlined text-xs text-muted dark:text-dark-muted">terminal</span>
@@ -141,7 +141,7 @@ export const Network = () => {
                         <section
                             id="skills-panel"
                             ref={skillsRef}
-                            className="w-full md:w-[40%] flex flex-col md:flex-none overflow-y-auto custom-scrollbar border-y border-r border-l md:border-l-0 md:border-r border-grid-line dark:border-dark-grid-line bg-[#050505]/80 backdrop-blur-md absolute h-min max-h-[55vh] sh:max-h-fit sh:overflow-y-hidden sh:relative z-40 md:sticky md:top-20 md:h-[calc(100vh-10rem)] md:max-h-none"
+                            className="w-full md:w-[40%] flex flex-col md:flex-none overflow-y-auto custom-scrollbar border-y border-r border-l md:border-l-0 md:border-r border-grid-line dark:border-dark-grid-line bg-[#050505]/80 backdrop-blur-md absolute h-min max-h-[55dvh] sh:max-h-fit sh:overflow-y-hidden sh:relative z-40 md:sticky md:top-20 md:h-[calc(100dvh-10rem)] md:max-h-none transition-[max-height,height] duration-500 ease-in-out"
                         >
                             {/* Cloud Section */}
                             <div className="md:flex-1 flex-shrink-0 border-b border-grid-line dark:border-dark-grid-line p-3 md:p-6 relative group hover:bg-primary/5 dark:hover:bg-dark-primary/5 transition-colors">

@@ -463,7 +463,7 @@ const AnimatedFrameCorners = ({ delay = 0, duration = 0.3, trackerKey = "frame_c
 
 export const Hero = () => {
     return (
-        <div className="flex justify-center flex-col min-h-screen w-full relative overflow-visible">
+        <div className="flex justify-center flex-col min-h-[100dvh] w-full relative overflow-visible transition-[min-height] duration-500 ease-in-out">
             <div className="relative z-10 flex flex-col h-full w-full">
                 {/* Main scrollable area */}
                 <main className={`flex-1 flex flex-col px-4 md:px-12 z-10 pt-24 md:pt-20 pb-16 md:pb-20`}>

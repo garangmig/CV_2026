@@ -15,6 +15,7 @@ import { siteConfig } from './data/siteConfig';
 import type { Project } from './types/project';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 function App() {
   const componentRef = useRef<HTMLDivElement>(null);
@@ -62,13 +63,23 @@ function App() {
       }
     };
 
+    let lastWidth = window.innerWidth;
+
+    const handleResize = () => {
+      // Only recalculate if width changes significantly (avoids mobile url bar resize triggers)
+      if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+        calculateOffsets();
+      }
+    };
+
     calculateOffsets();
-    window.addEventListener('resize', calculateOffsets);
+    window.addEventListener('resize', handleResize);
 
     const timer = setTimeout(calculateOffsets, 600);
 
     return () => {
-      window.removeEventListener('resize', calculateOffsets);
+      window.removeEventListener('resize', handleResize);
       clearTimeout(timer);
     };
   }, []);
@@ -273,7 +284,7 @@ function App() {
   const { title, subtitle } = getHeaderUpdates();
 
   return (
-    <div ref={componentRef} className="relative w-full h-screen bg-background-dark text-white font-display antialiased">
+    <div ref={componentRef} className="relative w-full h-[100dvh] bg-background-dark text-white font-display antialiased">
 
       {/* GLOBAL BACKGROUND */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -320,7 +331,7 @@ function App() {
       </div>
 
       {/* HUD LAYER */}
-      <div className="fixed inset-0 z-50 pointer-events-none flex flex-col justify-between">
+      <div className="fixed top-0 left-0 w-full h-[100dvh] z-50 pointer-events-none flex flex-col justify-between transition-[height] duration-10 ease-out will-change-[height]">
         <div className="pointer-events-auto">
           <Header
             title={title}

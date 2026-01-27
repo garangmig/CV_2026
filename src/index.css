@@ -29,7 +29,8 @@
   body {
     @apply bg-[var(--color-background-dark)] text-white overflow-x-hidden m-0 p-0 font-display;
     overflow-y: auto;
-    min-height: 100vh;
+    min-height: 100dvh;
+    transition: min-height 0.5s ease-in-out;
     /* Hide scrollbar for the main camera experience */
     -ms-overflow-style: none;
     /* IE and Edge */

@@ -52,7 +52,7 @@ export const Credentials = () => {
     };
 
     return (
-        <div className="flex flex-col md:h-screen w-full relative overflow-hidden text-secondary dark:text-dark-secondary">
+        <div className="flex flex-col md:h-[100dvh] w-full relative overflow-hidden text-secondary dark:text-dark-secondary transition-[height] duration-500 ease-in-out">
             <div className="relative z-10 flex flex-col h-full w-full">
 
 
