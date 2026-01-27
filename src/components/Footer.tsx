@@ -7,7 +7,7 @@ interface FooterProps {
 
 export const Footer = ({ version = "V2.0.1", status = false }: FooterProps) => {
     return (
-        <footer className="bottom-0 left-0 right-0 px-4 py-4 h-16 md:h-20 md:px-6 md:px-12 md:pb-8 md:pt-4 border-t border-grid-line/50 dark:border-dark-grid-line/50 bg-background/80 dark:bg-dark-background/80 backdrop-blur-md z-50 flex items-center">
+        <footer className="bottom-0 left-0 right-0 px-4 py-4 h-16 md:h-20 md:px-12 md:pb-8 md:pt-4 border-t border-grid-line/50 dark:border-dark-grid-line/50 bg-background/80 dark:bg-dark-background/80 backdrop-blur-md z-50 flex items-center">
             <div className="flex items-center justify-around md:justify-start md:gap-6 w-full">
                 <a
                     href={`https://${content.contactInfo.github}`}

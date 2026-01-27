@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { siteConfig } from '../data/siteConfig';
 import { content } from '../data/content';
 
 const CHARS = "0123456789ABCDEF";

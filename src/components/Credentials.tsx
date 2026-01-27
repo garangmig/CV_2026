@@ -1,4 +1,3 @@
-import { siteConfig } from '../data/siteConfig';
 import { content } from '../data/content';
 export const Credentials = () => {
     const { education, certifications } = content;

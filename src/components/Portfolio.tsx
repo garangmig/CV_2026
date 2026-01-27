@@ -58,10 +58,10 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onProjectSelect }) => {
 
                                     <div className="relative z-30 flex flex-col h-full p-3 md:p-6 md:pb-4">
                                         <div className="flex justify-between items-start mb-auto">
-                                            <span className="font-mono text-[8px] md:text-[10px] text-primary dark:text-dark-primary tracking-[0.2em] bg-background/70 dark:bg-dark-background/70 backdrop-blur-sm px-2 py-0.5 md:px-3 md:py-1 border border-primary/40 dark:border-dark-primary/40 shadow-[0_0_3px_theme(colors.primary/60%)] dark:shadow-[0_0_3px_theme(colors.dark.primary/60%)] group-hover:opacity-0 transition-opacity duration-700 ease-in-out">
+                                            <span className="font-mono text-[8px] md:text-[10px] text-secondary dark:text-dark-secondary tracking-[0.2em] bg-background/70 dark:bg-dark-background/70 backdrop-blur-sm px-2 py-0.5 md:px-3 md:py-1 border border-primary/40 dark:border-dark-primary/40 shadow-[0_0_3px_theme(colors.primary/60%)] dark:shadow-[0_0_3px_theme(colors.dark.primary/60%)] group-hover:opacity-0 transition-opacity duration-700 ease-in-out">
                                                 [{proj.id}]
                                             </span>
-                                            <span className="material-symbols-outlined text-xs md:text-sm text-grid-line dark:text-dark-grid-line group-hover:text-primary dark:group-hover:text-dark-primary transition-all group-hover:rotate-45 text-secondary dark:text-dark-secondary">
+                                            <span className="material-symbols-outlined text-xs md:text-sm group-hover:text-primary dark:group-hover:text-dark-primary transition-all group-hover:rotate-45 text-secondary dark:text-dark-secondary">
                                                 arrow_outward
                                             </span>
                                         </div>
