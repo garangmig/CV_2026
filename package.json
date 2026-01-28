@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@microsoft/clarity": "^1.0.2",
     "d3": "^7.9.0",
     "framer-motion": "^12.23.26",
     "gsap": "^3.14.2",
