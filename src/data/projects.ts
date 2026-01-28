@@ -1,11 +1,60 @@
 import type { Project } from "../types/project";
 
+// PRJ-01: Caja de Ahorro
+import CAJA_MAIN from "../assets/imageProject/caja/caja-main.png";
+import CAJA_PRINCIPAL from "../assets/imageProject/caja/caja-principal.jpeg";
+import CAJA_PRESTAMO from "../assets/imageProject/caja/caja-prestamo.jpeg";
+import CAJA_SOLICITUD from "../assets/imageProject/caja/caja-solicitud.jpeg";
+
+// PRJ-02: Automatización Timbrado
+import OIC_MAIN from "../assets/imageProject/timbrado-facturas/oic-main.jpg";
+import OIC_INTEGRATION from "../assets/imageProject/timbrado-facturas/oic-integration.jpg";
+import OIC_PROJECT from "../assets/imageProject/timbrado-facturas/oic-project.png";
+import OIC_VIEW from "../assets/imageProject/timbrado-facturas/oic-view.png";
+
+// PRJ-03: Reportes Oracle Fusion
+import OTBI_MAIN from "../assets/imageProject/otbi/otbi-main.png";
+import OTBI_GRAPHIC from "../assets/imageProject/otbi/otbi-graphic.png";
+import OTBI_CREATE from "../assets/imageProject/otbi/otbi-create.png";
+import OTBI_REPORT from "../assets/imageProject/otbi/otbi-report.png";
+
+// PRJ-04: Dashboard de Migración de Estudiantes
+import GRAFICA_MAIN from "../assets/imageProject/grafica/grafica-main.png";
+import GRAFICA_PESAS from "../assets/imageProject/grafica/grafica-pesas.png";
+import GRAFICA_PIRAMIDE from "../assets/imageProject/grafica/grafica-piramide.png";
+import GRAFICA_SANKEY from "../assets/imageProject/grafica/grafica-sankey.png";
+
+// PRJ-05: Cluster en R para Encuesta
+import CLUSTER_MAIN from "../assets/imageProject/cluster/cluster-main.png";
+import CLUSTER_CODIGO from "../assets/imageProject/cluster/cluster-codigo.png";
+import CLUSTER_GRAPHIC from "../assets/imageProject/cluster/cluster-graphic.png";
+import CLUSTER_TRES from "../assets/imageProject/cluster/cluster-tres.png";
+
+// PRJ-06: Servidor en Linux y Monitoreo
+import SERVIDOR_MAIN from "../assets/imageProject/servidor/servidor-main.png";
+import SERVIDOR_WEB from "../assets/imageProject/servidor/servidor-web.png";
+import SERVIDOR_IMAP from "../assets/imageProject/servidor/servidor-imap.png";
+import SERVIDOR_SSH from "../assets/imageProject/servidor/servidor-ssh.png";
+
+// PRJ-07: Robota (3D Web App)
+import ROBOTA_MAIN from "../assets/imageProject/robota/robota-main.png";
+import ROBOTA_CODE from "../assets/imageProject/robota/robota-code.png";
+import ROBOTA_BLENDER from "../assets/imageProject/robota/robota-blender.png";
+import ROBOTA_WEB from "../assets/imageProject/robota/robota-web.png";
+
+// PRJ-08: Red Neuronal (Cáncer)
+import RN_MAIN from "../assets/imageProject/rn/rn-main.png";
+import RN_RESULT from "../assets/imageProject/rn/rn-result.png";
+import RN_ACCURACY from "../assets/imageProject/rn/rn-acurracy.png";
+import RN_KERAS from "../assets/imageProject/rn/rn-keras.png";
+
+
 export const projects: Project[] = [
     {
         id: "PRJ-01",
         title: "Caja de Ahorro",
         shortDescription: "Creación de una aplicación web integral para la administración de la prestación de Caja de Ahorro del grupo Gigante, con un enfoque en la autogestión de usuarios y flujos de aprobación.",
-        icon: "src/assets/imageProject/caja/caja-main.png",
+        icon: CAJA_MAIN,
         longDescription: `
 Desarrollo de una aplicación web integral para la administración de la prestación de Caja de Ahorro del grupo Gigante, con un enfoque en la autogestión de usuarios y flujos de aprobación.
 
@@ -26,21 +75,21 @@ Desarrollo de una aplicación web integral para la administración de la prestac
             {
                 id: 1,
                 type: "image",
-                url: "src/assets/imageProject/caja/caja-principal.jpeg",
+                url: CAJA_PRINCIPAL,
                 alt: "Pantalla inicial de Caja de Ahorro mostrando el sistema de notificaciones",
                 title: "Menu de Caja de Ahorro",
             },
             {
                 id: 2,
                 type: "image",
-                url: "src/assets/imageProject/caja/caja-prestamo.jpeg",
+                url: CAJA_PRESTAMO,
                 alt: "Pantalla de solicitud de préstamo en Caja de Ahorro",
                 title: "Solicitud de préstamo en Caja de Ahorro"
             },
             {
                 id: 3,
                 type: "image",
-                url: "src/assets/imageProject/caja/caja-solicitud.jpeg",
+                url: CAJA_SOLICITUD,
                 alt: "Pantalla de solicitudes en Caja de Ahorro",
                 title: "Solicitudes de Caja de Ahorro"
             }
@@ -80,7 +129,7 @@ Desarrollo de una aplicación web integral para la administración de la prestac
         id: "PRJ-02",
         title: "Automatización Timbrado",
         shortDescription: "Lideré la integración en **Oracle Integration Cloud (OIC)** para automatizar el timbrado de facturas de MVS, desde el ERP de Oracle hacia el Proveedor Autorizado de Certificación (**PAC**).",
-        icon: "src/assets/imageProject/timbrado-facturas/oic-main.jpg",
+        icon: OIC_MAIN,
         longDescription: `
 Lideré la integración en **Oracle Integration Cloud (OIC)** para automatizar el timbrado de facturas de MVS, desde el ERP de Oracle hacia el Proveedor Autorizado de Certificación (**PAC**).
 
@@ -98,21 +147,21 @@ Lideré la integración en **Oracle Integration Cloud (OIC)** para automatizar e
             {
                 id: 1,
                 type: "image",
-                url: "src/assets/imageProject/timbrado-facturas/oic-integration.jpg",
+                url: OIC_INTEGRATION,
                 alt: "Plataforma de Oracle Cloud Integration",
                 title: "Oracle Cloud Integration",
             },
             {
                 id: 2,
                 type: "image",
-                url: "src/assets/imageProject/timbrado-facturas/oic-project.png",
+                url: OIC_PROJECT,
                 alt: "Vista de integraciones activas en Oracle Cloud Integration",
                 title: "Integraciones activas en Oracle Cloud Integration"
             },
             {
                 id: 3,
                 type: "image",
-                url: "src/assets/imageProject/timbrado-facturas/oic-view.png",
+                url: OIC_VIEW,
                 alt: "Vista del editor de integraciones en Oracle Cloud Integration",
                 title: "Editor de integraciones en Oracle Cloud Integration"
             }
@@ -145,7 +194,7 @@ Lideré la integración en **Oracle Integration Cloud (OIC)** para automatizar e
         id: "PRJ-03",
         title: "Reportes Oracle Fusion",
         shortDescription: "Creación de múltiples reportes analíticos y operativos, utilizando **OTBI (Oracle Transactional Business Intelligence)** con diseños personalizados (*customizados*) en **Oracle Fusion Applications** para las áreas de **HCM** (Human Capital Management) y **ERP** (Enterprise Resource Planning).",
-        icon: "src/assets/imageProject/otbi/otbi-main.png",
+        icon: OTBI_MAIN,
         longDescription: `
 Creación de múltiples reportes analíticos y operativos, utilizando **OTBI (Oracle Transactional Business Intelligence)** con diseños personalizados (*customizados*) en **Oracle Fusion Applications** para las áreas de **HCM** (Human Capital Management) y **ERP** (Enterprise Resource Planning).
 
@@ -167,21 +216,21 @@ Creación de múltiples reportes analíticos y operativos, utilizando **OTBI (Or
             {
                 id: 1,
                 type: "image",
-                url: "src/assets/imageProject/otbi/otbi-graphic.png",
+                url: OTBI_GRAPHIC,
                 alt: "Visualización de graficas en Oracle Transactional Business Intelligence",
                 title: "Graficas en OTBI",
             },
             {
                 id: 2,
                 type: "image",
-                url: "src/assets/imageProject/otbi/otbi-create.png",
+                url: OTBI_CREATE,
                 alt: "Creación de reporte en Oracle Transactional Business Intelligence",
                 title: "Creacion de reporte en OTBI",
             },
             {
                 id: 3,
                 type: "image",
-                url: "src/assets/imageProject/otbi/otbi-report.png",
+                url: OTBI_REPORT,
                 alt: "Reporte en Oracle Transactional Business Intelligence",
                 title: "Reporte en OTBI",
             }
@@ -207,7 +256,7 @@ Creación de múltiples reportes analíticos y operativos, utilizando **OTBI (Or
         id: "PRJ-04",
         title: "Dashboard de Migración de Estudiantes",
         shortDescription: "Creación de **gráficas personalizadas a partir de filtros** con información de la **SEP** de estudiantes foráneos de nivel licenciatura para el Gobierno de Aguascalientes.",
-        icon: "src/assets/imageProject/grafica/grafica-main.png",
+        icon: GRAFICA_MAIN,
         longDescription: `
 Creación de **gráficas personalizadas a partir de filtros** con información de la **SEP** de estudiantes foráneos de nivel licenciatura para el Gobierno de Aguascalientes.
 
@@ -240,21 +289,21 @@ Se realizó una gráfica de **pesas** con la librería **D3**  para representar 
             {
                 id: 1,
                 type: "image",
-                url: "src/assets/imageProject/grafica/grafica-pesas.png",
+                url: GRAFICA_PESAS,
                 alt: "Grafica de pesas para visualizar el crecimiento estudiantil entre dos años seleccionados",
                 title: "Grafica de pesas",
             },
             {
                 id: 2,
                 type: "image",
-                url: "src/assets/imageProject/grafica/grafica-piramide.png",
+                url: GRAFICA_PIRAMIDE,
                 alt: "Grafica de piramide para visualizar la poblacion estudiantil por sexo y estado",
                 title: "Grafica de piramide",
             },
             {
                 id: 3,
                 type: "image",
-                url: "src/assets/imageProject/grafica/grafica-sankey.png",
+                url: GRAFICA_SANKEY,
                 alt: "Grafica de sankey para visualizar la migracion de estudiantes entre estados y universidades",
                 title: "Grafica de sankey",
             }
@@ -280,7 +329,7 @@ Se realizó una gráfica de **pesas** con la librería **D3**  para representar 
         id: "PRJ-05",
         title: "Cluster en R para Encuesta",
         shortDescription: "Análisis de cluster realizado en **R** con los datos de una encuesta de la UPAEP para agrupar a los alumnos matriculados con fines de marketing",
-        icon: "src/assets/imageProject/cluster/cluster-main.png",
+        icon: CLUSTER_MAIN,
         longDescription: `
 Análisis de cluster realizado en **R** con los datos de una encuesta de la UPAEP para agrupar a los alumnos matriculados con fines de marketing.
 
@@ -295,21 +344,21 @@ Debido a la gran cantidad de datos y variables mixtas, se utilizó el algoritmo 
             {
                 id: 1,
                 type: "image",
-                url: "src/assets/imageProject/cluster/cluster-codigo.png",
+                url: CLUSTER_CODIGO,
                 alt: "Código en R y visualización de agrupación de alumnos",
                 title: "Agrupación de alumnos",
             },
             {
                 id: 2,
                 type: "image",
-                url: "src/assets/imageProject/cluster/cluster-graphic.png",
+                url: CLUSTER_GRAPHIC,
                 alt: "Grafica de la distribución de probabilidad de las categorías",
                 title: "Distribución de probabilidad",
             },
             {
                 id: 3,
                 type: "image",
-                url: "src/assets/imageProject/cluster/cluster-tres.png",
+                url: CLUSTER_TRES,
                 alt: "Agrupación de alumnos en tres grupos",
                 title: "Agrupación de alumnos",
             }
@@ -342,7 +391,7 @@ Debido a la gran cantidad de datos y variables mixtas, se utilizó el algoritmo 
         id: "PRJ-06",
         title: "Servidor en Linux y Monitoreo",
         shortDescription: "Implementación de un servidor **web, FTP, DNS, de correo, SSH** y creación de una **Zona Desmilitarizada (DMZ)** en Linux, junto con su posterior monitoreo para verificar fallas en la seguridad.",
-        icon: "src/assets/imageProject/servidor/servidor-main.png",
+        icon: SERVIDOR_MAIN,
         longDescription: `
 Implementación de un servidor **web, FTP, DNS, de correo, SSH** y creación de una **Zona Desmilitarizada (DMZ)** en Linux, junto con su posterior monitoreo para verificar fallas en la seguridad.
 
@@ -365,21 +414,21 @@ Se utilizó **NMAP** para ejecutar un script de vulnerabilidades, encontrando un
             {
                 id: 1,
                 type: "image",
-                url: "src/assets/imageProject/servidor/servidor-web.png",
+                url: SERVIDOR_WEB,
                 alt: "Servidor Web en Linux",
                 title: "Servidor Web",
             },
             {
                 id: 2,
                 type: "image",
-                url: "src/assets/imageProject/servidor/servidor-imap.png",
+                url: SERVIDOR_IMAP,
                 alt: "Servidor IMAP en Linux",
                 title: "Servidor IMAP",
             },
             {
                 id: 3,
                 type: "image",
-                url: "src/assets/imageProject/servidor/servidor-ssh.png",
+                url: SERVIDOR_SSH,
                 alt: "Servidor SSH en Linux",
                 title: "Servidor SSH",
             }
@@ -389,7 +438,7 @@ Se utilizó **NMAP** para ejecutar un script de vulnerabilidades, encontrando un
         id: "PRJ-07",
         title: "Robota (3D Web App)",
         shortDescription: "Aplicación Web **3D** que permite al usuario interactuar con contenido 3D, generada a través de animaciones por *keyframing* y *motion capture* en **Blender**.",
-        icon: "src/assets/imageProject/robota/robota-main.png",
+        icon: ROBOTA_MAIN,
         longDescription: `
 Aplicación Web **3D** que permite al usuario interactuar con contenido 3D, generada a través de animaciones por *keyframing* y *motion capture* en **Blender**.
 
@@ -405,21 +454,21 @@ Aplicación Web **3D** que permite al usuario interactuar con contenido 3D, gene
             {
                 id: 1,
                 type: "image",
-                url: "src/assets/imageProject/robota/robota-code.png",
+                url: ROBOTA_CODE,
                 alt: "Código de Robota",
                 title: "Código de Robota",
             },
             {
                 id: 2,
                 type: "image",
-                url: "src/assets/imageProject/robota/robota-blender.png",
+                url: ROBOTA_BLENDER,
                 alt: "Diseño de robot en Blender",
                 title: "Diseño de robot en Blender",
             },
             {
                 id: 3,
                 type: "image",
-                url: "src/assets/imageProject/robota/robota-web.png",
+                url: ROBOTA_WEB,
                 alt: "Robota en Web",
                 title: "Robota en Web",
             }
@@ -443,7 +492,7 @@ Aplicación Web **3D** que permite al usuario interactuar con contenido 3D, gene
         id: "PRJ-08",
         title: "Red Neuronal (Cáncer)",
         shortDescription: "Creación de una **Red Neuronal** para identificar el **cáncer de mama maligno** a partir de los casos clínicos del Dr. William H. Wolberg.",
-        icon: "src/assets/imageProject/rn/rn-main.png",
+        icon: RN_MAIN,
         longDescription: `
 Creación de una **Red Neuronal** para identificar el **cáncer de mama maligno** a partir de los casos clínicos del Dr. William H. Wolberg.
 
@@ -475,21 +524,21 @@ Evaluando el conjunto de 183 registros de prueba :
             {
                 id: 1,
                 type: "image",
-                url: "src/assets/imageProject/rn/rn-result.png",
+                url: RN_RESULT,
                 alt: "Resultados de la Red Neuronal",
                 title: "Resultados de la Red Neuronal",
             },
             {
                 id: 2,
                 type: "image",
-                url: "src/assets/imageProject/rn/rn-acurracy.png",
+                url: RN_ACCURACY,
                 alt: "Exactitud de la Red Neuronal",
                 title: "Exactitud de la Red Neuronal",
             },
             {
                 id: 3,
                 type: "image",
-                url: "src/assets/imageProject/rn/rn-keras.png",
+                url: RN_KERAS,
                 alt: "Resultados de la Red Neuronal",
                 title: "Resultados de la Red Neuronal",
             }

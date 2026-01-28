@@ -46,7 +46,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({ onProjectSelect }) => {
                                 <div className="relative flex-1 flex flex-col overflow-hidden pt-4 px-4 pb-0">
                                     <div className="absolute top-4 left-4 right-4 bottom-0 z-0 overflow-hidden border-x border-t border-grid-line/30 dark:border-dark-grid-line/30">
                                         <img
-                                            src={`/${proj.icon}`}
+                                            src={proj.icon}
                                             alt={proj.title}
                                             className="w-full h-full object-fill opacity-60 group-hover:opacity-100 transition-all duration-700"
                                         />

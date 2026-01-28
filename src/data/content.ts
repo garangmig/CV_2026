@@ -1,5 +1,3 @@
-import { summary } from "framer-motion/client";
-
 export const content = {
     basicInfo: {
         name: "MIGUEL ANGEL GARCIA BENITEZ",
